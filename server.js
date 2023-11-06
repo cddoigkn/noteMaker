@@ -20,10 +20,23 @@ const app = express();
 
 const PORT = 3001;
 
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 
-app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
+app.get('/test', (req, res) => res.send('Navigate to /send or /routes'));
+
+app.get('/notes', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/api/notes', async (req, res) => {
+  const noteData = await fs.readFile(path.join(__dirname, "./db/db.json"))
+  res.json(noteData)
+});
 
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)

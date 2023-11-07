@@ -10,17 +10,21 @@
   then writes note to db.json
   then returns the new note to the ui
 */
-
+const uuid = require("uuid");
 const express = require('express');
 const fs = require("fs");
-
+const { readFromFile, readAndAppend } = require('./helpers/fsUtils');
 const path = require('path');
 
 const app = express();
 
-const PORT = 3001;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// app.use(express.static('public'));
+// heroku PORT 
+const PORT = process.env.PORT || 3001;
+
+app.use(express.static('public'));
 
 
 app.get('/test', (req, res) => res.send('Navigate to /send or /routes'));
@@ -34,8 +38,26 @@ app.get('/', (req, res) => {
 });
 
 app.get('/api/notes', async (req, res) => {
-  const noteData = await fs.readFile(path.join(__dirname, "./db/db.json"))
-  res.json(noteData)
+  readFromFile('./db/db.json').then((noteData) => res.json(JSON.parse(noteData)));
+});
+
+app.post('/api/notes', (req, res) => {
+  console.info(`${req.method} request received to add a note`);
+
+  const { title, text } = req.body;
+
+  if (req.body) {
+    const newNote = {
+      title,
+      text,
+      note_id: uuid.v4(),
+    };
+
+    readAndAppend(newNote, './db/db.json');
+    res.json(`Note added successfully`);
+  } else {
+    res.error('Error in adding note');
+  }
 });
 
 app.listen(PORT, () =>

@@ -1,24 +1,12 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
-    },
-    {
-        "note_id": "27cebb0e-a960-4246-84dc-2256181b124c"
+        "title": "1",
+        "text": "2",
+        "id": "5408b439-7d06-42f2-b5fc-46403c188e5b"
     },
     {
         "title": "1",
         "text": "2",
-        "note_id": "5408b439-7d06-42f2-b5fc-46403c188e5b"
-    },
-    {
-        "title": "BLYAT CYKA",
-        "text": "CYKA BLYAT CYKA RUSH B",
-        "note_id": "4a342f4b-42bc-46cc-b2fc-eb50a5cda543"
-    },
-    {
-        "title": "1",
-        "text": "2",
-        "note_id": "19989813-9f16-481f-ba1d-0a541f384d22"
+        "id": "19989813-9f16-481f-ba1d-0a541f384d22"
     }
 ]
